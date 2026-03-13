@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre João Construções - Qualidade e Experiência</title>
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Mestre João Construções: 40 anos transformando sonhos em realidade. Projetos residenciais, comerciais e reformas com qualidade e prazo garantido.">
+    <meta name="keywords" content="construção, reformas, casas, acabamentos, construtora, Mestre João">
+    <meta name="author" content="Mestre João Construções">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mestrejoao.com">
+    <meta property="og:title" content="Mestre João Construções - 40 anos de experiência">
+    <meta property="og:description" content="Da fundação ao acabamento, qualidade em cada detalhe. Solicite seu orçamento grátis!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80">
+    <!-- Fontes e ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bibliotecas: Swiper para depoimentos, AOS para animações, Leaflet para mapa, Isotope para filtro -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* ===== RESET E VARIÁVEIS ===== */
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #172554;
+            --secondary: #d97706;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-body: #ffffff;
+            --text-body: #1e293b;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255,255,255,0.95);
+            --shadow: 0 4px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #f59e0b;
+            --dark: #f1f5f9;
+            --light: #0f172a;
+            --gray: #64748b;
+            --bg-body: #0f172a;
+            --text-body: #e2e8f0;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15,23,42,0.95);
+            --shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ===== ACESSIBILIDADE ===== */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            z-index: 10000;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: var(--text-body);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        .dark-mode-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-body);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .dark-mode-toggle:hover {
+            background: var(--gray);
+            color: var(--bg-body);
+        }
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-body);
+            cursor: pointer;
+        }
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.5s;
+                gap: 30px;
+                z-index: 999;
+            }
+            nav ul.active {
+                left: 0;
+            }
+            nav ul li a {
+                font-size: 1.2rem;
+            }
+            .dark-mode-toggle {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover fixed;
+            color: white;
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .hero-text h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .hero-text h1 span {
+            color: var(--secondary);
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* ===== SEÇÕES ===== */
+        section {
+            padding: 80px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== FILTRO E PESQUISA ===== */
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            color: var(--text-body);
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            background: var(--card-bg);
+            color: var(--text-body);
+        }
+
+        /* ===== CARDS DE PROJETO ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        .project-info {
+            padding: 20px;
+        }
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-body);
+        }
+        .project-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .tech-tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+        .project-links a {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-demo {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        .btn-details {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-demo:hover, .btn-details:hover {
+            filter: brightness(0.9);
+            transform: translateY(-2px);
+        }
+        .load-more {
+            text-align: center;
+        }
+        .load-more button {
+            padding: 10px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .load-more button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== MODAL ===== */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .project-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 40px;
+            transform: scale(0.9);
+            transition: 0.3s;
+        }
+        .project-modal.active .modal-content {
+            transform: scale(1);
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--error);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        .modal-header {
+            margin-bottom: 20px;
+        }
+        .modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--text-body);
+        }
+        .modal-gallery {
+            margin: 20px 0;
+        }
+        .modal-gallery .swiper-slide img {
+            width: 100%;
+            border-radius: 10px;
+            height: 300px;
+            object-fit: cover;
+        }
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .detail-item h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .detail-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .share-buttons a {
+            padding: 8px 15px;
+            background: #25D366;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .share-buttons a i {
+            margin-right: 5px;
+        }
+
+        /* ===== CALCULADORA DE ORÇAMENTO ===== */
+        .calculator {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            background: var(--card-bg);
+            color: var(--text-body);
+        }
+        .calculator-result {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 20px;
+        }
+
+        /* ===== DEPOIMENTOS (CARROSSEL) ===== */
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary);
+        }
+        .testimonial-card h4 {
+            color: var(--text-body);
+        }
+        .testimonial-card .role {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        /* ===== MAPA ===== */
+        #map {
+            height: 400px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 10px;
+            color: var(--gray);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        /* ===== WHATSAPP FLOATING ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: var(--transition);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip link para acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/60/000000/external-builder-professions-vitaliy-gorbachev-lineal-color-vitaly-gorbachev-1.png" alt="Logo Mestre João">
+                    <div class="logo-text">
+                        <h1>Mestre João</h1>
+                        <p>Construções & Reformas</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul id="nav-menu" role="list">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#projetos">Obras</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#depoimentos">Depoimentos</a></li>
+                        <li><a href="#orcamento">Orçamento</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                        <li><button class="dark-mode-toggle" id="darkModeToggle" aria-label="Alternar modo escuro"><i class="fas fa-moon"></i></button></li>
+                    </ul>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text" data-aos="fade-right">
+                        <h1><span>40 Anos</span> Construindo Sonhos</h1>
+                        <p>Da fundação ao acabamento, cada projeto é executado com precisão, qualidade e respeito ao prazo. Conheça nossas obras ou solicite um orçamento sem compromisso.</p>
+                        <div class="hero-buttons">
+                            <a href="#projetos" class="btn">Nossas Obras</a>
+                            <a href="#orcamento" class="btn btn-outline">Orçamento Grátis</a>
+                        </div>
+                    </div>
+                    <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mestre João supervisionando obra" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJETOS -->
+        <section class="projects" id="projetos">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Nossas Obras</h2>
+                    <p>Conheça alguns dos projetos que realizamos com dedicação e excelência.</p>
+                </div>
+                <div class="projects-filter" data-aos="fade-up" data-aos-delay="100">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="casas">Casas</button>
+                    <button class="filter-btn" data-filter="reformas">Reformas</button>
+                    <button class="filter-btn" data-filter="comercial">Comercial</button>
+                    <button class="filter-btn" data-filter="acabamentos">Acabamentos</button>
+                </div>
+                <div class="search-box" data-aos="fade-up" data-aos-delay="150">
+                    <input type="text" id="searchInput" placeholder="Pesquisar projetos...">
+                </div>
+                <div class="projects-grid" id="projectsContainer"></div>
+                <div class="load-more" id="loadMoreContainer">
+                    <button id="loadMoreBtn">Carregar mais projetos</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE NÓS -->
+        <section class="about" id="sobre">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Sobre Nós</h2>
+                    <p>Quatro décadas de história construindo confiança e qualidade.</p>
+                </div>
+                <div class="about-content" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    <div class="about-text" data-aos="fade-right" style="flex:1; min-width:300px;">
+                        <h3>Quem é Mestre João?</h3>
+                        <p>Fundada em 1983 por João da Silva, mestre de obras com mais de 40 anos de experiência, nossa empresa nasceu do sonho de oferecer construções sólidas, bonitas e com prazo cumprido. Hoje, somos uma equipe de engenheiros, arquitetos e colaboradores dedicados a transformar projetos em realidade.</p>
+                        <p>Valorizamos a transparência, o uso de materiais de qualidade e o respeito ao meio ambiente. Já são mais de 200 obras entregues, entre residenciais, comerciais e reformas de grande porte.</p>
+                    </div>
+                    <div class="about-images" data-aos="fade-left" style="flex:1; min-width:300px; display:grid; grid-template-columns:repeat(2,1fr); gap:15px;">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Equipe de construção" loading="lazy" style="width:100%; border-radius:10px; height:150px; object-fit:cover;">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Arquiteto projetando" loading="lazy" style="width:100%; border-radius:10px; height:150px; object-fit:cover;">
+                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Detalhe de acabamento" loading="lazy" style="width:100%; border-radius:10px; height:150px; object-fit:cover;">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112c4e5190?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Equipe em reunião" loading="lazy" style="width:100%; border-radius:10px; height:150px; object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPOIMENTOS -->
+        <section class="testimonials" id="depoimentos">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Depoimentos</h2>
+                    <p>O que nossos clientes dizem sobre nosso trabalho.</p>
+                </div>
+                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente">
+                                <h4>Ana Maria Souza</h4>
+                                <p class="role">Proprietária - Residencial</p>
+                                <p>"A Mestre João construiu a casa dos meus sonhos. Prazo cumprido, equipe educada e acabamento impecável. Recomendo!"</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente">
+                                <h4>Carlos Eduardo Lima</h4>
+                                <p class="role">Empresário</p>
+                                <p>"Reformaram meu escritório em tempo recorde. Profissionais qualificados e atenciosos. Voltarei a contratar."</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente">
+                                <h4>Fernanda Oliveira</h4>
+                                <p class="role">Arquiteta parceira</p>
+                                <p>"Trabalho com a Mestre João há 10 anos. Sempre entregam o que prometem, com qualidade e segurança."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALCULADORA DE ORÇAMENTO -->
+        <section class="budget-calculator" id="orcamento">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Simulador de Orçamento</h2>
+                    <p>Calcule um valor aproximado para sua obra.</p>
+                </div>
+                <div class="calculator" data-aos="fade-up" data-aos-delay="100">
+                    <h3 style="text-align:center; margin-bottom:20px;">Preencha os dados</h3>
+                    <div class="form-group">
+                        <label for="obraTipo">Tipo de obra:</label>
+                        <select id="obraTipo">
+                            <option value="residencial">Residencial</option>
+                            <option value="comercial">Comercial</option>
+                            <option value="reforma">Reforma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="metragem">Metragem (m²):</label>
+                        <input type="number" id="metragem" min="1" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="acabamento">Acabamento:</label>
+                        <select id="acabamento">
+                            <option value="simples">Simples</option>
+                            <option value="medio" selected>Médio</option>
+                            <option value="luxo">Luxo</option>
+                        </select>
+                    </div>
+                    <button class="btn" id="calcularBtn" style="width:100%;">Calcular</button>
+                    <div class="calculator-result" id="resultadoOrcamento">R$ 0,00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAPA DAS OBRAS -->
+        <section class="map-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Onde estamos</h2>
+                    <p>Confira algumas de nossas obras no mapa.</p>
+                </div>
+                <div id="map" data-aos="fade-up" data-aos-delay="100"></div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Perguntas Frequentes</h2>
+                    <p>Tire suas dúvidas sobre nossos serviços.</p>
+                </div>
+                <div class="faq-list" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Qual o prazo médio de uma obra residencial?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">O prazo varia conforme o tamanho e complexidade, mas em média uma casa de 200m² fica pronta em 8 a 12 meses.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Vocês fornecem os materiais?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Sim, trabalhamos com orçamento que inclui mão de obra e materiais, ou apenas mão de obra, conforme sua preferência.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Fazem reformas em apartamentos?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">Sim, temos experiência em reformas de apartamentos, sempre respeitando as normas do condomínio.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section class="contact" id="contato">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Entre em Contato</h2>
+                    <p>Solicite um orçamento ou tire suas dúvidas.</p>
+                </div>
+                <form id="contactForm" data-aos="fade-up" data-aos-delay="100" style="max-width:600px; margin:0 auto; display:grid; gap:15px;">
+                    <input type="text" name="name" placeholder="Seu nome" required aria-label="Nome" style="padding:12px; border:1px solid var(--gray); border-radius:8px; background:var(--card-bg); color:var(--text-body);">
+                    <input type="email" name="email" placeholder="Seu e-mail" required aria-label="E-mail" style="padding:12px; border:1px solid var(--gray); border-radius:8px; background:var(--card-bg); color:var(--text-body);">
+                    <textarea name="message" placeholder="Sua mensagem" required aria-label="Mensagem" style="padding:12px; border:1px solid var(--gray); border-radius:8px; background:var(--card-bg); color:var(--text-body); min-height:120px;"></textarea>
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
+                <div id="formMessage" style="text-align:center; margin-top:15px; color:var(--success);"></div>
+                <div class="contact-info" style="text-align:center; margin-top:30px;">
+                    <p><i class="fas fa-phone-alt"></i> <a href="tel:+5511999010846" style="color:var(--primary);">(11) 99901-0846</a></p>
+                    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5511999010846" style="color:var(--primary);">WhatsApp</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- WHATSAPP FLOATING -->
+    <a href="https://wa.me/5511999010846" class="whatsapp-float" target="_blank" aria-label="Contato via WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- BACK TO TOP -->
+    <div class="back-to-top" id="backToTop" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></div>
+
+    <!-- MODAL DE PROJETO -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal" aria-label="Fechar"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="project-badge" id="modalCategory"></span>
+                <h3 id="modalTitle"></h3>
+                <p id="modalSubtitle"></p>
+            </div>
+            <div class="modal-gallery swiper">
+                <div class="swiper-wrapper" id="modalGallery"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div class="modal-details">
+                <div class="detail-item">
+                    <h4>Desafio</h4>
+                    <p id="modalChallenge"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Solução</h4>
+                    <p id="modalSolution"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Materiais</h4>
+                    <p id="modalMaterials"></p>
+                </div>
+                <div class="detail-item">
+                    <h4>Diferenciais</h4>
+                    <p id="modalDifferentials"></p>
+                </div>
+            </div>
+            <div class="share-buttons">
+                <a href="#" id="shareWhatsApp" target="_blank"><i class="fab fa-whatsapp"></i> Compartilhar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar AOS (animações ao rolar)
+            AOS.init({ duration: 1000, once: true });
+
+            // ===== DADOS DOS PROJETOS =====
+            const projetos = [
+                { id:1, titulo:"Casa Familiar - Alphaville", categoria:"casas", badge:"Residencial", imagem:"https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Construção completa de residência de 350m² com acabamento premium.", tecnicas:["Alvenaria","Estrutura Metálica","Porcelanato"], desafio:"Terreno com inclinação acentuada.", solucao:"Fundação com estacas hélice contínua.", materiais:"Concreto usinado, tijolo ecológico.", diferenciais:"Automação residencial.", imagens:["https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80","https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] },
+                { id:2, titulo:"Reforma de Apartamento - Jardins", categoria:"reformas", badge:"Reforma", imagem:"https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Reforma completa de apartamento de 180m².", tecnicas:["Drywall","Iluminação LED","Piso vinílico"], desafio:"Estrutura antiga.", solucao:"Planejamento detalhado.", materiais:"Gesso acartonado, piso vinílico.", diferenciais:"Projeto luminotécnico.", imagens:["https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80","https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] },
+                { id:3, titulo:"Galpão Comercial - Zona Sul", categoria:"comercial", badge:"Comercial", imagem:"https://images.unsplash.com/photo-1586528116311-8832eeb3c2f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Construção de galpão logístico de 1500m².", tecnicas:["Estrutura metálica","Piso industrial"], desafio:"Entrega rápida.", solucao:"Pré-moldados.", materiais:"Aço, concreto.", diferenciais:"Sistema de incêndio.", imagens:["https://images.unsplash.com/photo-1586528116311-8832eeb3c2f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] },
+                { id:4, titulo:"Acabamento de Luxo - Condomínio", categoria:"acabamentos", badge:"Acabamento", imagem:"https://images.unsplash.com/photo-1618221381711-42ca8ab6e908?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Acabamento refinado em cobertura duplex.", tecnicas:["Mármore","Madeira de demolição"], desafio:"Integrar texturas.", solucao:"Artesãos especializados.", materiais:"Mármore Carrara.", diferenciais:"Lareira ecológica.", imagens:["https://images.unsplash.com/photo-1618221381711-42ca8ab6e908?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] },
+                { id:5, titulo:"Casa de Campo - Interior", categoria:"casas", badge:"Residencial", imagem:"https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Projeto rústico moderno.", tecnicas:["Pedra","Madeira","Vidro"], desafio:"Integração com paisagem.", solucao:"Materiais locais.", materiais:"Pedra São Tomé.", diferenciais:"Aquecimento solar.", imagens:["https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] },
+                { id:6, titulo:"Reforma de Fachada - Comercial", categoria:"reformas", badge:"Reforma", imagem:"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80", descricao:"Modernização de fachada.", tecnicas:["ACM","Vidro","LED"], desafio:"Sem interromper comércio.", solucao:"Trabalho noturno.", materiais:"Painéis ACM.", diferenciais:"Eficiência energética.", imagens:["https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"] }
+            ];
+
+            // Variáveis de paginação
+            let paginaAtual = 1;
+            const itensPorPagina = 3;
+            let projetosFiltrados = [...projetos];
+            let filtroCategoria = 'all';
+            let termoPesquisa = '';
+
+            const container = document.getElementById('projectsContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            // Função para renderizar projetos
+            function renderizarProjetos(reset = false) {
+                if (reset) {
+                    paginaAtual = 1;
+                }
+
+                // Aplicar filtro e pesquisa
+                projetosFiltrados = projetos.filter(p => {
+                    const categoriaOk = filtroCategoria === 'all' || p.categoria === filtroCategoria;
+                    const pesquisaOk = p.titulo.toLowerCase().includes(termoPesquisa.toLowerCase()) ||
+                                       p.descricao.toLowerCase().includes(termoPesquisa.toLowerCase());
+                    return categoriaOk && pesquisaOk;
+                });
+
+                const inicio = (paginaAtual - 1) * itensPorPagina;
+                const fim = inicio + itensPorPagina;
+                const projetosExibir = projetosFiltrados.slice(inicio, fim);
+
+                if (reset) container.innerHTML = '';
+
+                projetosExibir.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.setAttribute('data-category', p.categoria);
+                    card.innerHTML = `
+                        <div class="project-image">
+                            <img src="${p.imagem}" alt="${p.titulo}" loading="lazy">
+                            <span class="project-badge">${p.badge}</span>
+                        </div>
+                        <div class="project-info">
+                            <h3>${p.titulo}</h3>
+                            <p>${p.descricao}</p>
+                            <div class="project-tech">
+                                ${p.tecnicas.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                            </div>
+                            <div class="project-links">
+                                <a class="btn-demo" data-id="${p.id}">Ver Fotos</a>
+                                <a class="btn-details" data-id="${p.id}">Detalhes</a>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Esconder botão se não houver mais projetos
+                if (fim >= projetosFiltrados.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'block';
+                }
+
+                // Re-inicializar Isotope (filtro visual)
+                if (window.iso) window.iso.destroy();
+                window.iso = new Isotope(container, {
+                    itemSelector: '.project-card',
+                    layoutMode: 'fitRows'
+                });
+
+                anexarEventosProjetos();
+            }
+
+            // Botão carregar mais
+            loadMoreBtn.addEventListener('click', () => {
+                paginaAtual++;
+                renderizarProjetos();
+            });
+
+            // Filtro por categoria
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filtroCategoria = this.getAttribute('data-filter');
+                    renderizarProjetos(true);
+                });
+            });
+
+            // Pesquisa
+            searchInput.addEventListener('input', (e) => {
+                termoPesquisa = e.target.value;
+                renderizarProjetos(true);
+            });
+
+            // Modal
+            const modal = document.getElementById('projectModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalCategoria = document.getElementById('modalCategory');
+            const modalTitulo = document.getElementById('modalTitle');
+            const modalSubtitulo = document.getElementById('modalSubtitle');
+            const modalDesafio = document.getElementById('modalChallenge');
+            const modalSolucao = document.getElementById('modalSolution');
+            const modalMateriais = document.getElementById('modalMaterials');
+            const modalDiferenciais = document.getElementById('modalDifferentials');
+            const modalGaleria = document.getElementById('modalGallery');
+            const shareWhatsApp = document.getElementById('shareWhatsApp');
+
+            function abrirModal(id) {
+                const projeto = projetos.find(p => p.id == id);
+                if (!projeto) return;
+
+                modalCategoria.textContent = projeto.badge;
+                modalTitulo.textContent = projeto.titulo;
+                modalSubtitulo.textContent = projeto.descricao;
+                modalDesafio.textContent = projeto.desafio;
+                modalSolucao.textContent = projeto.solucao;
+                modalMateriais.textContent = projeto.materiais;
+                modalDiferenciais.textContent = projeto.diferenciais;
+
+                modalGaleria.innerHTML = '';
+                projeto.imagens.forEach(img => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = `<img src="${img}" alt="${projeto.titulo}" loading="lazy">`;
+                    modalGaleria.appendChild(slide);
+                });
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Inicializar Swiper na galeria
+                new Swiper('.modal-gallery', {
+                    loop: true,
+                    pagination: { el: '.swiper-pagination' },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+                });
+
+                // Link para compartilhar
+                shareWhatsApp.href = `https://wa.me/?text=${encodeURIComponent(`Confira este projeto da Mestre João: ${projeto.titulo}`)}`;
+            }
+
+            function anexarEventosProjetos() {
+                document.querySelectorAll('.btn-demo, .btn-details').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        abrirModal(btn.dataset.id);
+                    });
+                });
+            }
+
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Calculadora de orçamento
+            document.getElementById('calcularBtn').addEventListener('click', function() {
+                const tipo = document.getElementById('obraTipo').value;
+                const metragem = parseFloat(document.getElementById('metragem').value) || 0;
+                const acabamento = document.getElementById('acabamento').value;
+                let valorMedio = tipo === 'residencial' ? 2500 : tipo === 'comercial' ? 3000 : 1800;
+                let multiplicador = acabamento === 'medio' ? 1.3 : acabamento === 'luxo' ? 1.8 : 1;
+                const total = metragem * valorMedio * multiplicador;
+                document.getElementById('resultadoOrcamento').textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            });
+
+            // Mapa Leaflet
+            const map = L.map('map').setView([-23.5505, -46.6333], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Marcadores de exemplo
+            const obras = [
+                { lat: -23.5505, lng: -46.6333, titulo: 'Casa Alphaville' },
+                { lat: -23.5733, lng: -46.6254, titulo: 'Reforma Jardins' },
+                { lat: -23.5937, lng: -46.6826, titulo: 'Galpão Zona Sul' }
+            ];
+            obras.forEach(obra => {
+                L.marker([obra.lat, obra.lng]).addTo(map).bindPopup(obra.titulo);
+            });
+
+            // FAQ acordeão
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const answer = this.querySelector('.faq-answer');
+                    const icon = this.querySelector('.fas');
+                    if (this.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    } else {
+                        answer.style.maxHeight = 0;
+                        icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    }
+                });
+            });
+
+            // Formulário de contato
+            document.getElementById('contactForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const msgDiv = document.getElementById('formMessage');
+                msgDiv.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+                e.target.reset();
+                setTimeout(() => { msgDiv.textContent = ''; }, 5000);
+            });
+
+            // Modo escuro
+            const darkToggle = document.getElementById('darkModeToggle');
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            darkToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    darkToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    darkToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+
+            // Menu mobile
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('nav-menu').classList.toggle('active');
+            });
+
+            // Header scroll
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Botão voltar ao topo
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Inicializar com todos os projetos
+            renderizarProjetos(true);
+
+            // Swiper depoimentos
+            new Swiper('.testimonials-slider', {
+                loop: true,
+                pagination: { el: '.swiper-pagination' },
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                autoplay: { delay: 5000 }
+            });
+        });
+    </script>
+</body>
+</html>
